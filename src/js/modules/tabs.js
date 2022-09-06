@@ -1,34 +1,63 @@
-export default function tabs() {
+export default function tabs(parentSelector, tabSelector, blockSelector, activeClass) {
 
-    const blocks = document.querySelectorAll(".glazing_block");
-    const rowBlocks = document.querySelectorAll(".glazing .row");
-    blocks[0].lastElementChild.classList.add("active");
+    const parent = document.querySelector(parentSelector);
+    const tabs = document.querySelectorAll(`${tabSelector}`);
+    const blocks = document.querySelectorAll(blockSelector);
+    console.log(tabs);
+    console.log(blocks);
+    hideTabContent();
+    showTabContent();
 
+    function hideTabContent() {
+        tabs.forEach(tab => {
+            tab.classList.remove(activeClass);
+        });
+        blocks.forEach(block => {
+            block.style.display = "none";
+        });
+    }
 
-    blocks.forEach((item,i) => {
-        item.addEventListener("click", element => {
-            blocks.forEach(block => {
-                block.lastElementChild.classList.remove("active");
-            });
-            element.target.parentNode.lastElementChild.classList.add("active");
+    function showTabContent(i = 0) {
+        tabs[i].classList.add(activeClass);
+        blocks[i].style.display = "block";
+    }
 
-            rowBlocks.forEach(block => {
-                block.style.display = "block";
-                block.classList.add("fadeOut");
-                block.classList.remove("fadeIn");
-                block.style.visibility = 0;  
-                block.style.opacity = "0";           
-            });
-            rowBlocks[i].style.visibility = 1;
-            rowBlocks[i].classList.add("fadeIn");            
-            rowBlocks[i].classList.remove("fadeOut");
-
-            // rowBlocks[i].style.display = "block";
+    parent.addEventListener("click", element => {
+        tabs.forEach((tab, i) => {
+            if (element.target && (element.target == tab || element.target.parentNode == tab)) {
+                hideTabContent();
+                showTabContent(i);
+            }
         });
 
-
-
     });
+
+
+
+    // const blocks = document.querySelectorAll(".glazing_block");
+    // const rowBlocks = document.querySelectorAll(".glazing .row");
+    // blocks[0].lastElementChild.classList.add("active");
+
+
+    // blocks.forEach((item,i) => {
+    //     item.addEventListener("click", element => {
+    //         blocks.forEach(block => {
+    //             block.lastElementChild.classList.remove("active");
+    //         });
+    //         element.target.parentNode.lastElementChild.classList.add("active");
+
+    //         rowBlocks.forEach(block => {
+    //             block.style.display = "none";
+    //             block.style.opacity = "0";
+    //         });
+    //         rowBlocks[i].style.display = "block";
+    //         rowBlocks[i].style.opacity = "1";
+
+    //     });
+
+
+
+    // });
 
 
 
