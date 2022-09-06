@@ -1,10 +1,9 @@
-export default function tabs(parentSelector, tabSelector, blockSelector, activeClass) {
+export default function tabs(parentSelector, tabSelector, blockSelector, activeClass, a) {
 
     const parent = document.querySelector(parentSelector);
-    const tabs = document.querySelectorAll(`${tabSelector}`);
+    const tabs = document.querySelectorAll(`${tabSelector}` + ` ${a ? a : ""}`);
     const blocks = document.querySelectorAll(blockSelector);
-    console.log(tabs);
-    console.log(blocks);
+
     hideTabContent();
     showTabContent();
 

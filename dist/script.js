@@ -14874,16 +14874,79 @@ module.exports = g;
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _slider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./slider */ "./src/js/slider.js");
 /* harmony import */ var _modules_tabs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/tabs */ "./src/js/modules/tabs.js");
+/* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/modal */ "./src/js/modules/modal.js");
 
 
  // import "./wow.min";
 
 
+
 window.addEventListener("DOMContentLoaded", function () {
   new WOW().init();
-  Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_1__["default"])(".glazing_slider", ".glazing_block", ".glazing_content", "active");
+  Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_1__["default"])(".glazing_slider", ".glazing_block", ".glazing_content", "active", "a");
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_1__["default"])(".decoration_slider", ".no_click", ".decoration_content > div > div", "after_click");
+  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_2__["default"])(".popup_engineer_btn", ".popup_engineer");
+  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_2__["default"])(".phone_link", ".popup");
 });
+
+/***/ }),
+
+/***/ "./src/js/modules/modal.js":
+/*!*********************************!*\
+  !*** ./src/js/modules/modal.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return modal; });
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+function modal(triggerSelector, modalSelector) {
+  var trigger = document.querySelectorAll(triggerSelector);
+  var modal = document.querySelector(modalSelector);
+  var closeBtn = document.querySelectorAll(".popup_close");
+
+  function openModal() {
+    modal.style.display = "block";
+  }
+
+  function closeModal() {
+    modal.style.display = "none";
+    document.body.style.overflow = "";
+  }
+
+  trigger.forEach(function (trig) {
+    trig.addEventListener("click", function (e) {
+      e.preventDefault();
+      openModal();
+      document.body.style.overflow = "hidden";
+    });
+  });
+  closeBtn.forEach(function (btn) {
+    btn.addEventListener("click", closeModal);
+  });
+  modal.addEventListener("click", function (element) {
+    if (element.target == modal) {
+      closeModal();
+    }
+  });
+
+  function openModalByTimer(modalByTime, time) {
+    setTimeout(function () {
+      document.querySelector(modalByTime).style.display = "block";
+      document.body.style.overflow = "hidden";
+    }, time);
+  }
+
+  openModalByTimer(".popup", 3000); // const modalTimer = setTimeout(() => {
+  //     document.querySelector('.popup').style.display = 'block';
+  //     document.body.style.overflow = 'hidden';
+  // }, 3 * 1000);
+  // clearTimeout(modalTimer);  не сработает, в каждой функции openModal создается свой таймер и свой modalTimer. Он не расшаривается между функциями по понятным причинам. И клик, обработанный в одной функции не может завершить "соседний" интервал. А во втором варианте один id на все операции и вы можете управлять им из любой функции.
+}
 
 /***/ }),
 
@@ -14900,12 +14963,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
 
-function tabs(parentSelector, tabSelector, blockSelector, activeClass) {
+function tabs(parentSelector, tabSelector, blockSelector, activeClass, a) {
   var parent = document.querySelector(parentSelector);
-  var tabs = document.querySelectorAll("".concat(tabSelector));
+  var tabs = document.querySelectorAll("".concat(tabSelector) + " ".concat(a ? a : ""));
   var blocks = document.querySelectorAll(blockSelector);
-  console.log(tabs);
-  console.log(blocks);
   hideTabContent();
   showTabContent();
 
