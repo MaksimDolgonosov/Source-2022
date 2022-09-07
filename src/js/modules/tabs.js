@@ -1,4 +1,4 @@
-export default function tabs(parentSelector, tabSelector, blockSelector, activeClass, a) {
+export default function tabs(parentSelector, tabSelector, blockSelector, activeClass, a, display = "block") {
 
     const parent = document.querySelector(parentSelector);
     const tabs = document.querySelectorAll(`${tabSelector}` + ` ${a ? a : ""}`);
@@ -18,7 +18,7 @@ export default function tabs(parentSelector, tabSelector, blockSelector, activeC
 
     function showTabContent(i = 0) {
         tabs[i].classList.add(activeClass);
-        blocks[i].style.display = "block";
+        blocks[i].style.display = display;
     }
 
     parent.addEventListener("click", element => {
