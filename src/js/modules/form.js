@@ -1,11 +1,13 @@
+import checkNumbers from "./checkNumbers";
+
 export default function form() {
     const forms = document.querySelectorAll("form");
     const inputs = document.querySelectorAll("input");
     const phoneNumber = document.querySelectorAll("[name='user_phone']");
+
+
     phoneNumber.forEach(number => {
-        number.addEventListener("input", () => {
-            number.value = number.value.replace(/\D/ig, "");
-        });
+        checkNumbers(number);
     });
 
     forms.forEach(form => {
@@ -26,7 +28,7 @@ export default function form() {
             e.preventDefault();
 
             let comment = document.createElement("h2");
-            comment.style.cssText=`
+            comment.style.cssText = `
             color: red;
             font-size: 13px;`;
             form.append(comment);

@@ -4,10 +4,14 @@ import "./slider";
 import tabs from "./modules/tabs";
 import modal from "./modules/modal";
 import form from "./modules/form";
+import setFormSettings from "./modules/setFormSettings";
 
 
 
 window.addEventListener("DOMContentLoaded", () => {
+
+    let formSettings = {};
+
     new WOW().init();
     tabs(".glazing_slider", ".glazing_block", ".glazing_content", "active", "a");
     tabs(".decoration_slider", ".no_click", ".decoration_content > div > div", "after_click");
@@ -18,5 +22,6 @@ window.addEventListener("DOMContentLoaded", () => {
     modal(".popup_calc_button", ".popup_calc_profile", ".popup_calc_profile_close", false);
     modal(".popup_calc_profile_button", ".popup_calc_end", ".popup_calc_end_close", false);
     form();
+    setFormSettings(formSettings);
 
 });

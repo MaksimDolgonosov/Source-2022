@@ -17096,6 +17096,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_tabs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/tabs */ "./src/js/modules/tabs.js");
 /* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/modal */ "./src/js/modules/modal.js");
 /* harmony import */ var _modules_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/form */ "./src/js/modules/form.js");
+/* harmony import */ var _modules_setFormSettings__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/setFormSettings */ "./src/js/modules/setFormSettings.js");
 
 
  // import "./wow.min";
@@ -17103,7 +17104,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 window.addEventListener("DOMContentLoaded", function () {
+  var formSettings = {};
   new WOW().init();
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_1__["default"])(".glazing_slider", ".glazing_block", ".glazing_content", "active", "a");
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_1__["default"])(".decoration_slider", ".no_click", ".decoration_content > div > div", "after_click");
@@ -17114,7 +17117,29 @@ window.addEventListener("DOMContentLoaded", function () {
   Object(_modules_modal__WEBPACK_IMPORTED_MODULE_2__["default"])(".popup_calc_button", ".popup_calc_profile", ".popup_calc_profile_close", false);
   Object(_modules_modal__WEBPACK_IMPORTED_MODULE_2__["default"])(".popup_calc_profile_button", ".popup_calc_end", ".popup_calc_end_close", false);
   Object(_modules_form__WEBPACK_IMPORTED_MODULE_3__["default"])();
+  Object(_modules_setFormSettings__WEBPACK_IMPORTED_MODULE_4__["default"])(formSettings);
 });
+
+/***/ }),
+
+/***/ "./src/js/modules/checkNumbers.js":
+/*!****************************************!*\
+  !*** ./src/js/modules/checkNumbers.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return checkNumbers; });
+/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.string.replace */ "./node_modules/core-js/modules/es.string.replace.js");
+/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0__);
+
+function checkNumbers(numberField) {
+  numberField.addEventListener("input", function () {
+    numberField.value = numberField.value.replace(/\D/ig, "");
+  });
+}
 
 /***/ }),
 
@@ -17134,10 +17159,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var core_js_modules_es_promise_finally__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.promise.finally */ "./node_modules/core-js/modules/es.promise.finally.js");
 /* harmony import */ var core_js_modules_es_promise_finally__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise_finally__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.string.replace */ "./node_modules/core-js/modules/es.string.replace.js");
-/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _checkNumbers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./checkNumbers */ "./src/js/modules/checkNumbers.js");
 
 
 
@@ -17148,9 +17172,7 @@ function form() {
   var inputs = document.querySelectorAll("input");
   var phoneNumber = document.querySelectorAll("[name='user_phone']");
   phoneNumber.forEach(function (number) {
-    number.addEventListener("input", function () {
-      number.value = number.value.replace(/\D/ig, "");
-    });
+    Object(_checkNumbers__WEBPACK_IMPORTED_MODULE_4__["default"])(number);
   });
   forms.forEach(function (form) {
     bindPostData(form);
@@ -17255,6 +17277,78 @@ function modal(triggerSelector, modalSelector, closeButton) {
   //     document.body.style.overflow = 'hidden';
   // }, 3000);
 }
+
+/***/ }),
+
+/***/ "./src/js/modules/setFormSettings.js":
+/*!*******************************************!*\
+  !*** ./src/js/modules/setFormSettings.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return setFormSettings; });
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _checkNumbers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./checkNumbers */ "./src/js/modules/checkNumbers.js");
+
+
+function setFormSettings(formSettings) {
+  var forms = document.querySelectorAll(".balcon_icons_img");
+  var width = document.querySelectorAll("#width");
+  var height = document.querySelectorAll("#height");
+  var type = document.querySelectorAll("#view_type");
+  var checkbox = document.querySelectorAll(".checkbox");
+  width.forEach(function (number) {
+    return Object(_checkNumbers__WEBPACK_IMPORTED_MODULE_1__["default"])(number);
+  });
+  height.forEach(function (number) {
+    return Object(_checkNumbers__WEBPACK_IMPORTED_MODULE_1__["default"])(number);
+  });
+
+  function setSettings(selector, event, setting) {
+    selector.forEach(function (form, i) {
+      form.addEventListener(event, function () {
+        switch (event) {
+          case "click":
+            formSettings[setting] = i;
+            break;
+
+          case "input":
+            if (form.getAttribute("class") == "checkbox") {
+              formSettings[setting] = form.nextElementSibling.getAttribute("id");
+              selector.forEach(function (box, j) {
+                box.checked = false;
+
+                if (i == j) {
+                  selector[i].checked = true;
+                }
+              });
+            } else {
+              formSettings[setting] = form.value;
+            }
+
+            break;
+
+          case "change":
+            formSettings[setting] = form.value;
+            break;
+        }
+
+        console.log(formSettings);
+      });
+    });
+  }
+
+  setSettings(forms, "click", "formOfWindow");
+  setSettings(width, "input", "width");
+  setSettings(height, "input", "height");
+  setSettings(type, "change", "typeOfWindow");
+  setSettings(checkbox, "input", "profile");
+}
+;
 
 /***/ }),
 
