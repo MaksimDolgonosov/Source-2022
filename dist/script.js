@@ -17097,9 +17097,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/modal */ "./src/js/modules/modal.js");
 /* harmony import */ var _modules_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/form */ "./src/js/modules/form.js");
 /* harmony import */ var _modules_setFormSettings__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/setFormSettings */ "./src/js/modules/setFormSettings.js");
+/* harmony import */ var _modules_timer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/timer */ "./src/js/modules/timer.js");
 
 
  // import "./wow.min";
+
 
 
 
@@ -17121,6 +17123,7 @@ window.addEventListener("DOMContentLoaded", function () {
   Object(_modules_modal__WEBPACK_IMPORTED_MODULE_2__["default"])(".popup_calc_profile_button", ".popup_calc_end", ".popup_calc_end_close", false);
   Object(_modules_form__WEBPACK_IMPORTED_MODULE_3__["default"])(formSettings);
   Object(_modules_setFormSettings__WEBPACK_IMPORTED_MODULE_4__["default"])(formSettings);
+  Object(_modules_timer__WEBPACK_IMPORTED_MODULE_5__["default"])();
 });
 
 /***/ }),
@@ -17471,6 +17474,81 @@ function tabs(parentSelector, tabSelector, blockSelector, activeClass, a) {
   //         rowBlocks[i].style.opacity = "1";
   //     });
   // });
+}
+
+/***/ }),
+
+/***/ "./src/js/modules/timer.js":
+/*!*********************************!*\
+  !*** ./src/js/modules/timer.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return timer; });
+function timer() {
+  var finalDate = new Date(2022, 8, 12, 20);
+  var now = new Date();
+
+  if (finalDate - now <= 0) {
+    var _timer = document.querySelector(".timer1");
+
+    _timer.querySelector("#days").innerHTML = "00";
+    _timer.querySelector("#hours").innerHTML = "00";
+    _timer.querySelector("#minutes").innerHTML = "00";
+    _timer.querySelector("#seconds").innerHTML = "00";
+  } else {
+    setClock(".timer1");
+  }
+
+  setClock(".timer1");
+
+  function getTimeRemaining(finalDate) {
+    var now = Date.parse(new Date());
+    var t = finalDate - now;
+    var days = Math.floor(t / 60000 / 60 / 24);
+    var hours = Math.floor(t / 60000 / 60 % 24);
+    var min = Math.floor(t / 60000 % 60);
+    var sec = Math.floor(t / 1000 % 60);
+    return {
+      total: t,
+      days: days,
+      hours: hours,
+      min: min,
+      sec: sec
+    };
+  }
+
+  function setClock(selector) {
+    var timer = document.querySelector(selector);
+    var days = timer.querySelector("#days");
+    var hours = timer.querySelector("#hours");
+    var minutes = timer.querySelector("#minutes");
+    var seconds = timer.querySelector("#seconds");
+    updateClock();
+    var timeInterval = setInterval(updateClock, 1000);
+
+    function updateClock() {
+      days.textContent = addZero(getTimeRemaining(finalDate).days);
+      hours.textContent = addZero(getTimeRemaining(finalDate).hours);
+      minutes.textContent = addZero(getTimeRemaining(finalDate).min);
+      seconds.textContent = addZero(getTimeRemaining(finalDate).sec);
+    }
+  }
+
+  function addZero(n) {
+    var number;
+
+    if (n < 9) {
+      number = "0".concat(n);
+    } else {
+      number = n;
+    }
+
+    return number;
+  }
 }
 
 /***/ }),

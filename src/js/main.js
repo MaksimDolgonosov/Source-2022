@@ -5,6 +5,7 @@ import tabs from "./modules/tabs";
 import modal from "./modules/modal";
 import form from "./modules/form";
 import setFormSettings from "./modules/setFormSettings";
+import timer from "./modules/timer";
 
 
 
@@ -26,5 +27,6 @@ window.addEventListener("DOMContentLoaded", () => {
     modal(".popup_calc_profile_button", ".popup_calc_end", ".popup_calc_end_close", false);
     form(formSettings);
     setFormSettings(formSettings);
+    timer();
 
 });
