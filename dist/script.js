@@ -17098,9 +17098,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/form */ "./src/js/modules/form.js");
 /* harmony import */ var _modules_setFormSettings__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/setFormSettings */ "./src/js/modules/setFormSettings.js");
 /* harmony import */ var _modules_timer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/timer */ "./src/js/modules/timer.js");
+/* harmony import */ var _modules_bigImg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/bigImg */ "./src/js/modules/bigImg.js");
 
 
  // import "./wow.min";
+
 
 
 
@@ -17124,7 +17126,39 @@ window.addEventListener("DOMContentLoaded", function () {
   Object(_modules_form__WEBPACK_IMPORTED_MODULE_3__["default"])(formSettings);
   Object(_modules_setFormSettings__WEBPACK_IMPORTED_MODULE_4__["default"])(formSettings);
   Object(_modules_timer__WEBPACK_IMPORTED_MODULE_5__["default"])();
+  Object(_modules_bigImg__WEBPACK_IMPORTED_MODULE_6__["default"])();
 });
+
+/***/ }),
+
+/***/ "./src/js/modules/bigImg.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/bigImg.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return bigImg; });
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+function bigImg() {
+  var links = document.querySelectorAll(".works a");
+  links.forEach(function (link) {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      var div = document.createElement("div");
+      div.classList.add("bigImgOverlay");
+      div.style.cssText = "\n            display: block;\n            position: absolute;\n            top: 0px;\n            left: 0px;\n            width: 100%;\n            height: 100%;\n            z-index: 10";
+      div.style.backgroundColor = "rgba(0,0,0, 0.8)";
+      document.body.style.position = "relative";
+      document.body.style.overflow = "hidden";
+      document.body.append(div);
+    });
+  });
+}
 
 /***/ }),
 

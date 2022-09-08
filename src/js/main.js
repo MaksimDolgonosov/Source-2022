@@ -6,6 +6,7 @@ import modal from "./modules/modal";
 import form from "./modules/form";
 import setFormSettings from "./modules/setFormSettings";
 import timer from "./modules/timer";
+import bigImg from "./modules/bigImg";
 
 
 
@@ -28,5 +29,6 @@ window.addEventListener("DOMContentLoaded", () => {
     form(formSettings);
     setFormSettings(formSettings);
     timer();
+    bigImg();
 
 });
