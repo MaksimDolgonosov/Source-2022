@@ -10,7 +10,10 @@ import setFormSettings from "./modules/setFormSettings";
 
 window.addEventListener("DOMContentLoaded", () => {
 
-    let formSettings = {};
+    let formSettings = {
+        formOfWindow: 0,
+        typeOfWindow: 'tree'
+    };
 
     new WOW().init();
     tabs(".glazing_slider", ".glazing_block", ".glazing_content", "active", "a");
@@ -21,7 +24,7 @@ window.addEventListener("DOMContentLoaded", () => {
     tabs(".balcon_icons", ".balcon_icons_img", ".big_img > img", "do_image_more", "", "inline-block");
     modal(".popup_calc_button", ".popup_calc_profile", ".popup_calc_profile_close", false);
     modal(".popup_calc_profile_button", ".popup_calc_end", ".popup_calc_end_close", false);
-    form();
+    form(formSettings);
     setFormSettings(formSettings);
 
 });

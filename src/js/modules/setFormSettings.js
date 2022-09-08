@@ -38,7 +38,7 @@ export default function setFormSettings(formSettings) {
 
                         break;
                 }
-                console.log(formSettings);
+                
             });
         });
     }

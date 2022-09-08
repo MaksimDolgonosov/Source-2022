@@ -1,6 +1,6 @@
 import checkNumbers from "./checkNumbers";
 
-export default function form() {
+export default function form(state) {
     const forms = document.querySelectorAll("form");
     const inputs = document.querySelectorAll("input");
     const phoneNumber = document.querySelectorAll("[name='user_phone']");
@@ -35,6 +35,14 @@ export default function form() {
             comment.textContent = message.loading;
 
             let formData = new FormData(form);
+            if (form.getAttribute("data-calc") == "end") {
+                for (let key in state) {
+                    formData.append(key, state[key]);
+                }
+            }
+
+
+
             fetch("assets/server.php", {
                 method: "POST",
                 body: formData
@@ -54,6 +62,17 @@ export default function form() {
                     setTimeout(() => {
                         comment.remove();
                     }, 3000);
+                    state = {
+                        formOfWindow: 0,
+                        typeOfWindow: 'tree'
+                    };
+                    if (form.getAttribute("data-calc") == "end") {
+                        setTimeout(() => {
+                            document.querySelector(".popup_calc_end").style.display="none";
+                            document.body.style.overflow = "";
+                        }, 5000);
+                    }
+        
 
                 });
         });

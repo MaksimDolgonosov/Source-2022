@@ -23,11 +23,60 @@ export default function modal(triggerSelector, modalSelector, closeButton, close
     trigger.forEach(trig => {
         trig.addEventListener("click", e => {
             e.preventDefault();
-            allModals.forEach(item => {
-                item.style.display = "none";
-            });
-            openModal();
-            document.body.style.overflow = "hidden";
+            // console.log(trig.getAttribute("class") == "button popup_calc_button");
+
+            if (trig.getAttribute("class") == "button popup_calc_button") {
+                if (document.querySelector("#width").value &&
+                    document.querySelector("#height").value) {
+                    allModals.forEach(item => {
+                        item.style.display = "none";
+                    });
+                    openModal();
+                    document.body.style.overflow = "hidden";
+                }
+            } else if (trig.getAttribute("class") == "button popup_calc_profile_button") {
+                console.log(!document.querySelectorAll(".checkbox")[0].checked &&
+                    !document.querySelectorAll(".checkbox")[1].checked);
+                if (!document.querySelectorAll(".checkbox")[0].checked &&
+                    !document.querySelectorAll(".checkbox")[1].checked) {
+                } else {
+                    allModals.forEach(item => {
+                        item.style.display = "none";
+                    });
+                    openModal();
+                    document.body.style.overflow = "hidden";
+                }
+            } else {
+                allModals.forEach(item => {
+                    item.style.display = "none";
+                });
+                openModal();
+                document.body.style.overflow = "hidden";
+            }
+
+
+
+            // switch (trig) {
+            //     case trig.getAttribute("class") == "button popup_calc_button":
+            //         console.log(document.querySelector("#weight").value);
+            //         if (!document.querySelector("#weight").value &&
+            //             !document.querySelector("#height").value) {
+            //         }
+            //         break;
+            //     case trig.getAttribute("class") == "button popup_calc_profile_button":
+            //         if (!document.querySelectorAll(".checkbox")[0] &&
+            //             !document.querySelectorAll(".checkbox")[1]) {
+            //         }
+            //         break;
+            //     default:
+            //         allModals.forEach(item => {
+            //             item.style.display = "none";
+            //         });
+            //         openModal();
+            //         document.body.style.overflow = "hidden";
+            // }
+
+
         });
 
     });
@@ -37,7 +86,7 @@ export default function modal(triggerSelector, modalSelector, closeButton, close
     });
 
     modal.addEventListener("click", element => {
-        if (element.target == modal && closeClickOverlay ==true) {
+        if (element.target == modal && closeClickOverlay == true) {
             closeModal();
         }
     });
