@@ -17146,16 +17146,26 @@ __webpack_require__.r(__webpack_exports__);
 
 function bigImg() {
   var links = document.querySelectorAll(".works a");
-  links.forEach(function (link) {
+  links.forEach(function (link, i) {
     link.addEventListener("click", function (e) {
       e.preventDefault();
       var div = document.createElement("div");
       div.classList.add("bigImgOverlay");
-      div.style.cssText = "\n            display: block;\n            position: absolute;\n            top: 0px;\n            left: 0px;\n            width: 100%;\n            height: 100%;\n            z-index: 10";
+      div.style.cssText = "\n            position: fixed;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            top: 0px;\n            left: 0px;\n            width: 100%;\n            height: 100%;";
       div.style.backgroundColor = "rgba(0,0,0, 0.8)";
       document.body.style.position = "relative";
       document.body.style.overflow = "hidden";
-      document.body.append(div);
+      var img = document.createElement("img");
+      img.setAttribute("src", "assets/img/our_works/big_img/".concat(i + 1, ".png"));
+      img.style.display = "block";
+      div.append(img);
+      document.querySelector(".works").append(div);
+      div.addEventListener("click", function (el) {
+        if (el.target && el.target.classList.contains("bigImgOverlay")) {
+          div.remove();
+          document.body.style.overflow = "";
+        }
+      });
     });
   });
 }
