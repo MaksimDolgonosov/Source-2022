@@ -17303,30 +17303,36 @@ function modal(triggerSelector, modalSelector, closeButton) {
   var modal = document.querySelector(modalSelector);
   var closeBtn = document.querySelectorAll(closeButton);
   var allModals = document.querySelectorAll("[data-modal]");
+  var marginR = calcScroll();
 
   function openModal() {
-    modal.style.display = "block"; // clearTimeout(modalTimer);  //не сработает, в каждой функции openModal создается свой таймер и свой modalTimer. Он не расшаривается между функциями по понятным причинам. И клик, обработанный в одной функции не может завершить "соседний" интервал. А во втором варианте один id на все операции и вы можете управлять им из любой функции.
+    modal.style.display = "block";
+    document.body.style.marginRight = "".concat(marginR, "px"); // clearTimeout(modalTimer);  //не сработает, в каждой функции openModal создается свой таймер и свой modalTimer. Он не расшаривается между функциями по понятным причинам. И клик, обработанный в одной функции не может завершить "соседний" интервал. А во втором варианте один id на все операции и вы можете управлять им из любой функции.
   }
 
   function closeModal() {
     modal.style.display = "none";
     document.body.style.overflow = "";
+    document.body.style.marginRight = "0px";
     allModals.forEach(function (item) {
       item.style.display = "none";
+      document.body.style.marginRight = "0px";
     });
   }
 
   trigger.forEach(function (trig) {
     trig.addEventListener("click", function (e) {
-      e.preventDefault(); // console.log(trig.getAttribute("class") == "button popup_calc_button");
+      e.preventDefault();
 
       if (trig.getAttribute("class") == "button popup_calc_button") {
         if (document.querySelector("#width").value && document.querySelector("#height").value) {
           allModals.forEach(function (item) {
             item.style.display = "none";
+            document.body.style.marginRight = "0px";
           });
           openModal();
           document.body.style.overflow = "hidden";
+          document.body.style.marginRight = "".concat(marginR, "px");
         }
       } else if (trig.getAttribute("class") == "button popup_calc_profile_button") {
         console.log(!document.querySelectorAll(".checkbox")[0].checked && !document.querySelectorAll(".checkbox")[1].checked);
@@ -17337,6 +17343,7 @@ function modal(triggerSelector, modalSelector, closeButton) {
           });
           openModal();
           document.body.style.overflow = "hidden";
+          document.body.style.marginRight = "".concat(marginR, "px");
         }
       } else {
         allModals.forEach(function (item) {
@@ -17344,26 +17351,8 @@ function modal(triggerSelector, modalSelector, closeButton) {
         });
         openModal();
         document.body.style.overflow = "hidden";
-      } // switch (trig) {
-      //     case trig.getAttribute("class") == "button popup_calc_button":
-      //         console.log(document.querySelector("#weight").value);
-      //         if (!document.querySelector("#weight").value &&
-      //             !document.querySelector("#height").value) {
-      //         }
-      //         break;
-      //     case trig.getAttribute("class") == "button popup_calc_profile_button":
-      //         if (!document.querySelectorAll(".checkbox")[0] &&
-      //             !document.querySelectorAll(".checkbox")[1]) {
-      //         }
-      //         break;
-      //     default:
-      //         allModals.forEach(item => {
-      //             item.style.display = "none";
-      //         });
-      //         openModal();
-      //         document.body.style.overflow = "hidden";
-      // }
-
+        document.body.marginRight = "".concat(marginR, "px");
+      }
     });
   });
   closeBtn.forEach(function (btn) {
@@ -17373,7 +17362,19 @@ function modal(triggerSelector, modalSelector, closeButton) {
     if (element.target == modal && closeClickOverlay == true) {
       closeModal();
     }
-  }); // function openModalByTimer(modalByTime, time) {
+  });
+
+  function calcScroll() {
+    var div = document.createElement("div");
+    div.style.width = "50px";
+    div.style.height = "50px";
+    div.style.overflowY = "scroll";
+    div.style.visibility = "hidden";
+    document.body.append(div);
+    var scrollWidth = div.offsetWidth - div.clientWidth;
+    div.remove();
+    return scrollWidth;
+  } // function openModalByTimer(modalByTime, time) {
   //     setTimeout(() => {
   //         document.querySelector(modalByTime).style.display = "block";
   //         document.body.style.overflow = "hidden";
@@ -17384,6 +17385,7 @@ function modal(triggerSelector, modalSelector, closeButton) {
   //     document.querySelector('.popup').style.display = 'block';
   //     document.body.style.overflow = 'hidden';
   // }, 3000);
+
 }
 
 /***/ }),

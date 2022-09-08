@@ -4,35 +4,39 @@ export default function modal(triggerSelector, modalSelector, closeButton, close
     const modal = document.querySelector(modalSelector);
     const closeBtn = document.querySelectorAll(closeButton);
     const allModals = document.querySelectorAll("[data-modal]");
+    let marginR = calcScroll();
 
 
 
     function openModal() {
         modal.style.display = "block";
-
+        document.body.style.marginRight =`${marginR}px`;
         // clearTimeout(modalTimer);  //не сработает, в каждой функции openModal создается свой таймер и свой modalTimer. Он не расшаривается между функциями по понятным причинам. И клик, обработанный в одной функции не может завершить "соседний" интервал. А во втором варианте один id на все операции и вы можете управлять им из любой функции.
     }
     function closeModal() {
         modal.style.display = "none";
         document.body.style.overflow = "";
+        document.body.style.marginRight =`0px`;
         allModals.forEach(item => {
             item.style.display = "none";
+            document.body.style.marginRight =`0px`;
         });
     }
 
     trigger.forEach(trig => {
         trig.addEventListener("click", e => {
             e.preventDefault();
-            // console.log(trig.getAttribute("class") == "button popup_calc_button");
 
             if (trig.getAttribute("class") == "button popup_calc_button") {
                 if (document.querySelector("#width").value &&
                     document.querySelector("#height").value) {
                     allModals.forEach(item => {
                         item.style.display = "none";
+                        document.body.style.marginRight =`0px`;
                     });
                     openModal();
                     document.body.style.overflow = "hidden";
+                    document.body.style.marginRight =`${marginR}px`;
                 }
             } else if (trig.getAttribute("class") == "button popup_calc_profile_button") {
                 console.log(!document.querySelectorAll(".checkbox")[0].checked &&
@@ -45,6 +49,7 @@ export default function modal(triggerSelector, modalSelector, closeButton, close
                     });
                     openModal();
                     document.body.style.overflow = "hidden";
+                    document.body.style.marginRight =`${marginR}px`;
                 }
             } else {
                 allModals.forEach(item => {
@@ -52,30 +57,8 @@ export default function modal(triggerSelector, modalSelector, closeButton, close
                 });
                 openModal();
                 document.body.style.overflow = "hidden";
+                document.body.marginRight =`${marginR}px`;
             }
-
-
-
-            // switch (trig) {
-            //     case trig.getAttribute("class") == "button popup_calc_button":
-            //         console.log(document.querySelector("#weight").value);
-            //         if (!document.querySelector("#weight").value &&
-            //             !document.querySelector("#height").value) {
-            //         }
-            //         break;
-            //     case trig.getAttribute("class") == "button popup_calc_profile_button":
-            //         if (!document.querySelectorAll(".checkbox")[0] &&
-            //             !document.querySelectorAll(".checkbox")[1]) {
-            //         }
-            //         break;
-            //     default:
-            //         allModals.forEach(item => {
-            //             item.style.display = "none";
-            //         });
-            //         openModal();
-            //         document.body.style.overflow = "hidden";
-            // }
-
 
         });
 
@@ -90,6 +73,21 @@ export default function modal(triggerSelector, modalSelector, closeButton, close
             closeModal();
         }
     });
+
+
+
+    function calcScroll() {
+        let div = document.createElement("div");
+        div.style.width = "50px";
+        div.style.height = "50px";
+        div.style.overflowY = "scroll";
+        div.style.visibility="hidden";
+        document.body.append(div);
+        let scrollWidth = div.offsetWidth - div.clientWidth;
+        div.remove();
+        return scrollWidth;
+    }
+    
 
     // function openModalByTimer(modalByTime, time) {
     //     setTimeout(() => {
